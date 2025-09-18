@@ -3,9 +3,8 @@ import shutil
 import os
 
 def replace_video(package_path, video_path):
-    # Create output path
-    base, ext = os.path.splitext(package_path)
-    output_path = f"{base}_updated{ext}"
+    # Always output to Kids-Network-1.package in assets folder
+    output_path = os.path.join("assets", "Kids-Network-1.package")
 
     # For now: just simulate replacing video
     # (In reality you'd inject the video into the correct STBL or binary stream)
