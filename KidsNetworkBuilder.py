@@ -1,28 +1,24 @@
 import sys
-import subprocess
 import shutil
-from pathlib import Path
+import os
 
-def main():
-    if len(sys.argv) < 3:
-        print("Usage: KidsNetworkBuilder.exe <package_file> <video_file>")
-        sys.exit(1)
+def replace_video(package_path, video_path):
+    # Create output path
+    base, ext = os.path.splitext(package_path)
+    output_path = f"{base}_updated{ext}"
 
-    package_file = Path(sys.argv[1])
-    video_file = Path(sys.argv[2])
+    # For now: just simulate replacing video
+    # (In reality you'd inject the video into the correct STBL or binary stream)
+    shutil.copy(package_path, output_path)
 
-    if not package_file.exists() or not video_file.exists():
-        print("Error: Files not found.")
-        sys.exit(1)
-
-    # Placeholder: actual replacement logic should be implemented here
-    print(f"Replacing video in {package_file} with {video_file}...")
-    # TODO: Implement DBPF replacement
-
-    # For now just copy the package as output
-    output_file = package_file.parent / "Kids-Network-1.package"
-    shutil.copy(package_file, output_file)
-    print(f"Created {output_file}")
+    print(f"✅ Created new package: {output_path}")
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) < 3:
+        print("Usage: python KidsNetworkBuilder.py <package_file> <video_file>")
+        sys.exit(1)
+
+    package_file = sys.argv[1]
+    video_file = sys.argv[2]
+
+    replace_video(package_file, video_file)
